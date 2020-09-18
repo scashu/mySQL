@@ -1,0 +1,54 @@
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------
+Replication with a MySQL or MariaDB Instance Running External to Amazon RDS
+https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.External.Repl.html
+
+You can configure replication using the binary log file position of replicated transactions. On Amazon RDS MySQL 5.7.23 and later MySQL 5.7 versions, 
+you can also configure replication using global transaction identifiers (GTIDs). 
+To set the binary logging format for a MySQL or MariaDB database, update the binlog_format parameter.
+
+
+SOURCE:
+Make the source MySQL or MariaDB instance read-only.
+mysql> FLUSH TABLES WITH READ LOCK;
+mysql> SET GLOBAL read_only = ON; 
+mysql> SHOW MASTER STATUS
+note down the results and will be needed to resume replication after import
+
+mysqldump --databases database_name ^
+    --single-transaction ^
+    --compress ^
+    --order-by-primary ^
+    -u local_user ^
+    -plocal_password | mysql ^
+        --host=hostname ^
+        --port=3306 ^
+        -u RDS_user_name ^
+        -pRDS_password
+        
+Make the source MySQL or MariaDB instance writeable again.
+mysql> SET GLOBAL read_only = OFF;
+mysql> UNLOCK TABLES; 
+
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+Importing Data to an Amazon RDS MySQL or MariaDB DB Instance with Reduced Downtime 
+https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/MySQL.Procedural.Importing.NonRDSRepl.html
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------
+
+------------------------------------------------------------------------------------
+
