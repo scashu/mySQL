@@ -1,4 +1,20 @@
 ------------------------------------------------------------------------------------
+
+Create a Partial Backup of the prod Database That Only Includes the products Table check_circle
+Create Full Backups of the dev and test Databases
+
+Run following command to create backups of the dev and test databases:
+# mysqldump -u root -p --databases dev test > dev_test.sql
+
+Create a Complete Backup of All the Databases on the MySQL Server
+Use the following command to create a full backup of all the databases on the MySQL server:
+# mysqldump -u root -p --all-databases > full_backup.sql
+
+Create Delimited-Text Dump Files of the prod Database in the `/var/lib/mysql-files` Directory
+Perform a Full Restore of the Databases on the MySQL Server by Reloading the msyql_dump.sql Dump File Located in the `/home/cloud_user` Directory
+To perform a full restore of the MySQL server, run the following command from the /home/cloud_user directory:
+# mysql -u root -p < mysql_dump.sql
+
 ------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------
 
